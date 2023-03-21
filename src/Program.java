@@ -19,7 +19,7 @@ public class Program {
     }
 
     public static String calc(String input){
-        String[] args = input.split(" ");
+        String[] args = input.trim().split(" ");
         if(args.length != 3) throw new IllegalArgumentException();
         int x, y, result;
         boolean isArabicOperation = true;
@@ -31,8 +31,11 @@ public class Program {
             y = convertRomanToArabicNumber(args[2]);
             isArabicOperation = false;
         }else {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Number system not recognized");
         }
+
+        if(x == 0 || x > 10 || y == 0 || y > 10)
+            throw new IllegalArgumentException("Numbers from 1 to 10 are accepted as input");
 
         switch (args[1]){
             case "+":
@@ -45,16 +48,15 @@ public class Program {
                 result = x * y;
                 break;
             case "/":
-                if(y == 0) throw new IllegalArgumentException();
                 result = x / y;
                 break;
-            default: throw new IllegalArgumentException();
+            default: throw new IllegalArgumentException("Operation not recognized");
         }
         if(isArabicOperation){
             return String.valueOf(result);
         }else {
             if(result <= 0) {
-                throw new IllegalArgumentException();
+                throw new RuntimeException("Roman numbers cannot be negative");
             }else{
                 return convertArabicToRomanNumber(result);
             }
@@ -92,6 +94,6 @@ public class Program {
     }
 
     enum RomanNumbers{
-        I, II, III, IV, V, VI, VII, VIII, IX, X
+        I, II, III, IV, V, VI, VII, VIII, IX, X, XI, XII, XIII, XIV, XV, XVI, XVII, XVIII, XIX, XX
     }
 }
