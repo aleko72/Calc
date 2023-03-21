@@ -4,6 +4,10 @@ import java.io.InputStreamReader;
 
 
 public class Program {
+
+    static int[] numbers = {1, 4, 5, 9, 10, 50, 100 };
+    static String[] letters = { "I", "IV", "V", "IX", "X", "L", "C"};
+
     public static void main(String[] args) {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         for (;;){
@@ -86,14 +90,22 @@ public class Program {
     }
 
     static String convertArabicToRomanNumber(int arg){
-        int index = arg - 1;
-        if(index < 0 || index > RomanNumbers.values().length - 1){
-            throw new IllegalArgumentException();
+        StringBuilder romanValue = new StringBuilder();
+        int number = arg;
+        while ( number > 0 ){
+            for (int i = 0; i < numbers.length; i++){
+                if ( number < numbers[i] ){
+                    number -= numbers[i-1];
+                    romanValue.append(letters[i - 1]);
+                    break;
+                }
+            }
         }
-        return RomanNumbers.values()[index].name();
+        return romanValue.toString();
     }
 
     enum RomanNumbers{
-        I, II, III, IV, V, VI, VII, VIII, IX, X, XI, XII, XIII, XIV, XV, XVI, XVII, XVIII, XIX, XX
+        I, II, III, IV, V, VI, VII, VIII, IX, X
     }
+
 }
